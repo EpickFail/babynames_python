@@ -7,18 +7,18 @@ import numpy as np
 index = np.arange(len(ascii_uppercase))
 a = ord('A')
 b = ord('a')
-az = [chr(i) for i in range(a, a+26)]
-za = [chr(i) for i in range(b, b+26)]
-AZ = {az[i]: 0 for i in range(len(az))}
-ZA = {za[i]: 0 for i in range(len(za))}
-datelst = ['1900', '1945', '1990', '2005']
-for i in datelst:
+az = [chr(i) for i in range(a, a+26)]  # генерация списка заглавных букв алфавита
+za = [chr(i) for i in range(b, b+26)]  # генерация списка строчных букв алфавита
+AZ = {az[i]: 0 for i in range(len(az))}  # генерация словаря счетчиков букв заглавных букв алфавита
+ZA = {za[i]: 0 for i in range(len(za))}  # генерация словаря счетчиков букв строчных букв алфавита
+datelst = ['1900', '1945', '1990', '2005']  # список выбранных лет
+for i in datelst:  # чтение файла
     df = pd.read_csv(r'C:\Users\Epick\Documents\GitHub\pydata-book\datasets\babynames\yob%s.txt' % i, sep=',',
                      names=["name", "sex", "number"])
-    for j in range(len(df)):
+    for j in range(len(df)):   # цикл подсчета первых букв
         if df['name'][j][0] in AZ:
             AZ[df['name'][j][0]] += 1
-    for j in range(len(df)):
+    for j in range(len(df)):  # цикл подсчета последних букв
         if df['name'][j][-1] in ZA:
             ZA[df['name'][j][-1]] += 1
     fig, ax = plt.subplots()
@@ -32,3 +32,4 @@ for i in datelst:
     ax.legend()
     plt.show()
     fig.savefig(i)
+    
